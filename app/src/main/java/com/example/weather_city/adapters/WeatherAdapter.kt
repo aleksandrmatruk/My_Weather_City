@@ -10,12 +10,13 @@ import com.example.weather_city.R
 import com.example.weather_city.databinding.ListItemBinding
 import com.squareup.picasso.Picasso
 
+
 class WeatherAdapter(private val listener: Listener?) :
     ListAdapter<WeatherModel, WeatherAdapter.Holder>(Comparator()) {
 
-    class Holder(view: View, val listener: Listener?) : RecyclerView.ViewHolder(view) {
-        val binding = ListItemBinding.bind(view)
-        var itemTemp: WeatherModel? = null
+    class Holder(view: View, private val listener: Listener?) : RecyclerView.ViewHolder(view) {
+        private val binding = ListItemBinding.bind(view)
+        private var itemTemp: WeatherModel? = null
 
         init {
             itemView.setOnClickListener {

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -79,6 +80,13 @@ class MainFragment : Fragment() {
             tabLayout.selectTab(tabLayout.getTabAt(0))
             checkLocation()
         }
+        ibSearch.setOnClickListener {
+            DialogManager.searchByNameDialog(requireContext(), object : DialogManager.Listener {
+                override fun onClick(name: String?) {
+                    name?.let { it1 -> requestWeatherData(it1) }
+                }
+            })
+        }
     }
 
     private fun checkLocation() {
@@ -86,7 +94,7 @@ class MainFragment : Fragment() {
             getLocation()
         } else {
             DialogManager.locationSettingsDialog(requireContext(), object : DialogManager.Listener {
-                override fun onClick() {
+                override fun onClick(name: String?) {
                     startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
                 }
             })
@@ -193,7 +201,8 @@ class MainFragment : Fragment() {
             )
             list.add(item)
         }
-        model.liveDataList.value = list
+        //todo "model"
+//        model.liveDataList.value = list
         return list
     }
 
